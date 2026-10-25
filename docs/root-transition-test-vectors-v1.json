@@ -1,0 +1,78 @@
+{
+  "cases": [
+    {
+      "artifact": "old",
+      "at": "2031-01-01T01:00:00Z",
+      "name": "old_before_transition",
+      "transition_applied": false,
+      "valid": true
+    },
+    {
+      "artifact": "overlap_old",
+      "at": "2031-01-02T03:00:00Z",
+      "name": "old_during_overlap",
+      "transition_applied": true,
+      "valid": true
+    },
+    {
+      "artifact": "overlap_new",
+      "at": "2031-01-02T03:00:00Z",
+      "name": "new_during_overlap",
+      "transition_applied": true,
+      "valid": true
+    },
+    {
+      "artifact": "new",
+      "at": "2031-02-01T02:00:00Z",
+      "name": "new_after_overlap",
+      "transition_applied": true,
+      "valid": true
+    },
+    {
+      "artifact": "old_after_cutover",
+      "at": "2031-02-01T02:00:00Z",
+      "error": "untrusted root",
+      "name": "old_certificate_after_cutover",
+      "transition_applied": true,
+      "valid": false
+    },
+    {
+      "at": "2031-02-08T00:00:00Z",
+      "error": "root transition expired",
+      "name": "expired_transition_install",
+      "transition_applied": false,
+      "valid": false
+    },
+    {
+      "at": "2031-01-02T00:00:00Z",
+      "error": "invalid signature",
+      "name": "invalid_transition_signature",
+      "transition_applied": false,
+      "valid": false
+    }
+  ],
+  "created_at": "2031-01-01T00:00:00Z",
+  "description": "Deterministic Ed25519 root-transition interoperability vectors; every private key is test-only.",
+  "expires_at": "2031-02-08T00:00:00Z",
+  "invalid_transition_artifact": "RKT1.eyJzY2hlbWFfdmVyc2lvbiI6MSwidHJhbnNpdGlvbl9pZCI6InJvb3QtMjAzMS12ZWN0b3IiLCJhbGdvcml0aG0iOiJFZDI1NTE5Iiwib2xkX3Jvb3Rfa2V5X2lkIjoic2hhMjU2OjU2NDc1YWE3NTQ2MzQ3NGMwMjg1ZGY1ZGJmMmJjYWI3M2RhNjUxMzU4ODM5ZTliNzc0ODFiMmVhYjEwNzcwOGMiLCJvbGRfcm9vdF9wdWJsaWNfa2V5IjoiQTZFSHZfUE9FTDRkY04wWTUwdkFtV2ZrMWpDYnBRMWZIZHlHWkJKVk1iZyIsIm5ld19yb290X2tleV9pZCI6InNoYTI1NjoyNGY2ZWQ2YWNiZmUxMDA5YzAzMGQ3Y2E1NjdjMzNjYTQ4MzA5MTE0OTgyMzZiNTU2MWE2YzgyYWJlYzVkZTI4IiwibmV3X3Jvb3RfcHVibGljX2tleSI6IktheTY0VUc4eXZDeUxocVUwMDBMeHpZZVVtMExfaExJbDVTOGt5S1diZGMiLCJjcmVhdGVkX2F0IjoiMjAzMS0wMS0wMVQwMDowMDowMFoiLCJub3RfYmVmb3JlIjoiMjAzMS0wMS0wMlQwMDowMDowMFoiLCJvdmVybGFwX3VudGlsIjoiMjAzMS0wMi0wMVQwMDowMDowMFoiLCJleHBpcmVzX2F0IjoiMjAzMS0wMi0wOFQwMDowMDowMFoiLCJyZWFzb24iOiJjcm9zcy1sYW5ndWFnZSB0ZXN0IHZlY3RvciJ9.7cgmK13l0GUzWhW5XEeBITb1PljXzdc4Y9KDzZH6lu-Q0E3uWuz_AfcopOvUiGg1J9QRijIG471KyqF0oU6vCA.D0BGE-ArN2luRejqgyOVK-cAYcxjfYegsnyNn2mU0hmgxZmPS4ZmdpizAgzyRSOiWpDIsJD8fScRwVLsJU60DA",
+  "issuer_certificates": {
+    "new": "ISC1.eyJzY2hlbWFfdmVyc2lvbiI6MSwiaXNzdWVyX2tleV9pZCI6Imlzc3Vlci1uZXctdmVjdG9yIiwiYWxnb3JpdGhtIjoiRWQyNTUxOSIsInB1YmxpY19rZXkiOiJGMFZUdEZiZDM4YVFqc3F4d1FILWFySWVLNm9HRjNsYmZVT21OSUtaUDlVIiwiYXV0aG9yaXR5X25vdF9iZWZvcmUiOiIyMDMxLTAxLTAyVDAwOjAwOjAwWiIsImF1dGhvcml0eV9ub3RfYWZ0ZXIiOiIyMDMyLTAyLTAxVDAwOjAwOjAwWiIsInByb2R1Y3RzIjpbImNvbS5leGFtcGxlLnJvdGF0aW9uIl19.E0diWwPCRn2EhZLN_dRW-bQi45tmJKDtzO19Nvpym-_jq1CJhMWo3SwkCURfU-7SAOGNVcMtWKhU3nNT_yRVCQ",
+    "old": "ISC1.eyJzY2hlbWFfdmVyc2lvbiI6MSwiaXNzdWVyX2tleV9pZCI6Imlzc3Vlci1vbGQtdmVjdG9yIiwiYWxnb3JpdGhtIjoiRWQyNTUxOSIsInB1YmxpY19rZXkiOiJKVU81TF9FSlZSRkhhdHlEYWR0dDNKTTJaYUVaZU4yaFFFN2hCbXlwVlowIiwiYXV0aG9yaXR5X25vdF9iZWZvcmUiOiIyMDMwLTEyLTMxVDAwOjAwOjAwWiIsImF1dGhvcml0eV9ub3RfYWZ0ZXIiOiIyMDMyLTAyLTAxVDAwOjAwOjAwWiIsInByb2R1Y3RzIjpbImNvbS5leGFtcGxlLnJvdGF0aW9uIl19.4OgboG9RQNkHlMNtQHn_Vu7uoijHwemxOoGdusQXzcPoVOPST7jGvxk7Atp46cNwmkGJvY7CleRXU8D-ecm9Dw",
+    "old_after_cutover": "ISC1.eyJzY2hlbWFfdmVyc2lvbiI6MSwiaXNzdWVyX2tleV9pZCI6Imlzc3Vlci1vbGQtdG9vLWxhdGUtdmVjdG9yIiwiYWxnb3JpdGhtIjoiRWQyNTUxOSIsInB1YmxpY19rZXkiOiJKVU81TF9FSlZSRkhhdHlEYWR0dDNKTTJaYUVaZU4yaFFFN2hCbXlwVlowIiwiYXV0aG9yaXR5X25vdF9iZWZvcmUiOiIyMDMxLTAyLTAxVDAwOjAwOjAwWiIsImF1dGhvcml0eV9ub3RfYWZ0ZXIiOiIyMDMyLTAyLTAxVDAwOjAwOjAwWiIsInByb2R1Y3RzIjpbImNvbS5leGFtcGxlLnJvdGF0aW9uIl19.HJIvkrBLhw8K9zbzbN7NGAFPIih_wKm5vpcbiSOoqkLH3PCFRc4N5iIHpu4WEZgxwFxquv2gWAXCA3d_kdo8Bw"
+  },
+  "licence_artifacts": {
+    "new": "{\n  \"schema_version\": 1,\n  \"envelope\": \"LIC1.issuer-new-vector.eyJzY2hlbWFfdmVyc2lvbiI6MSwibGljZW5jZV9pZCI6ImxpYy1pc3N1ZXItbmV3LXZlY3RvciIsInByb2R1Y3RfaWQiOiJjb20uZXhhbXBsZS5yb3RhdGlvbiIsImxpY2VuY2VfdHlwZSI6InBlcnBldHVhbCIsImlzc3VlZF9hdCI6IjIwMzEtMDItMDFUMDE6MDA6MDBaIiwibm90X2JlZm9yZSI6IjIwMzEtMDItMDFUMDE6MDA6MDBaIiwiZXhwaXJlc19hdCI6bnVsbH0.vBMoapN-01SfL3V-yJfk7Z-cjaMEcg3uc2Ty7Elt56SE63HMhu6m7BfN8WKntXEmd2_U9duJg2fYvl0bZKYXCQ\",\n  \"issuer_certificate\": \"ISC1.eyJzY2hlbWFfdmVyc2lvbiI6MSwiaXNzdWVyX2tleV9pZCI6Imlzc3Vlci1uZXctdmVjdG9yIiwiYWxnb3JpdGhtIjoiRWQyNTUxOSIsInB1YmxpY19rZXkiOiJGMFZUdEZiZDM4YVFqc3F4d1FILWFySWVLNm9HRjNsYmZVT21OSUtaUDlVIiwiYXV0aG9yaXR5X25vdF9iZWZvcmUiOiIyMDMxLTAxLTAyVDAwOjAwOjAwWiIsImF1dGhvcml0eV9ub3RfYWZ0ZXIiOiIyMDMyLTAyLTAxVDAwOjAwOjAwWiIsInByb2R1Y3RzIjpbImNvbS5leGFtcGxlLnJvdGF0aW9uIl19.E0diWwPCRn2EhZLN_dRW-bQi45tmJKDtzO19Nvpym-_jq1CJhMWo3SwkCURfU-7SAOGNVcMtWKhU3nNT_yRVCQ\"\n}",
+    "old": "{\n  \"schema_version\": 1,\n  \"envelope\": \"LIC1.issuer-old-vector.eyJzY2hlbWFfdmVyc2lvbiI6MSwibGljZW5jZV9pZCI6ImxpYy1pc3N1ZXItb2xkLXZlY3RvciIsInByb2R1Y3RfaWQiOiJjb20uZXhhbXBsZS5yb3RhdGlvbiIsImxpY2VuY2VfdHlwZSI6InBlcnBldHVhbCIsImlzc3VlZF9hdCI6IjIwMzEtMDEtMDFUMDA6MDA6MDBaIiwibm90X2JlZm9yZSI6IjIwMzEtMDEtMDFUMDA6MDA6MDBaIiwiZXhwaXJlc19hdCI6bnVsbH0.Dcg-nrk1tR1zRkVeSJ-n1HTCtza3Bzx3l4fP2h7nwF84FZvrdPPhjov0YDJKGQqXpjCbXeA25BaDyVchas27Ag\",\n  \"issuer_certificate\": \"ISC1.eyJzY2hlbWFfdmVyc2lvbiI6MSwiaXNzdWVyX2tleV9pZCI6Imlzc3Vlci1vbGQtdmVjdG9yIiwiYWxnb3JpdGhtIjoiRWQyNTUxOSIsInB1YmxpY19rZXkiOiJKVU81TF9FSlZSRkhhdHlEYWR0dDNKTTJaYUVaZU4yaFFFN2hCbXlwVlowIiwiYXV0aG9yaXR5X25vdF9iZWZvcmUiOiIyMDMwLTEyLTMxVDAwOjAwOjAwWiIsImF1dGhvcml0eV9ub3RfYWZ0ZXIiOiIyMDMyLTAyLTAxVDAwOjAwOjAwWiIsInByb2R1Y3RzIjpbImNvbS5leGFtcGxlLnJvdGF0aW9uIl19.4OgboG9RQNkHlMNtQHn_Vu7uoijHwemxOoGdusQXzcPoVOPST7jGvxk7Atp46cNwmkGJvY7CleRXU8D-ecm9Dw\"\n}",
+    "old_after_cutover": "{\n  \"schema_version\": 1,\n  \"envelope\": \"LIC1.issuer-old-too-late-vector.eyJzY2hlbWFfdmVyc2lvbiI6MSwibGljZW5jZV9pZCI6ImxpYy1pc3N1ZXItb2xkLXRvby1sYXRlLXZlY3RvciIsInByb2R1Y3RfaWQiOiJjb20uZXhhbXBsZS5yb3RhdGlvbiIsImxpY2VuY2VfdHlwZSI6InBlcnBldHVhbCIsImlzc3VlZF9hdCI6IjIwMzEtMDItMDFUMDE6MDA6MDBaIiwibm90X2JlZm9yZSI6IjIwMzEtMDItMDFUMDE6MDA6MDBaIiwiZXhwaXJlc19hdCI6bnVsbH0.ggJdBdM7_Qo6-O8_-ZA40OK4F4U6MubpdnVQ55XZyJ8zqJlZ89pfp-AfZSMDLJpO6kNyRZ2ii2VMync4uD4uDQ\",\n  \"issuer_certificate\": \"ISC1.eyJzY2hlbWFfdmVyc2lvbiI6MSwiaXNzdWVyX2tleV9pZCI6Imlzc3Vlci1vbGQtdG9vLWxhdGUtdmVjdG9yIiwiYWxnb3JpdGhtIjoiRWQyNTUxOSIsInB1YmxpY19rZXkiOiJKVU81TF9FSlZSRkhhdHlEYWR0dDNKTTJaYUVaZU4yaFFFN2hCbXlwVlowIiwiYXV0aG9yaXR5X25vdF9iZWZvcmUiOiIyMDMxLTAyLTAxVDAwOjAwOjAwWiIsImF1dGhvcml0eV9ub3RfYWZ0ZXIiOiIyMDMyLTAyLTAxVDAwOjAwOjAwWiIsInByb2R1Y3RzIjpbImNvbS5leGFtcGxlLnJvdGF0aW9uIl19.HJIvkrBLhw8K9zbzbN7NGAFPIih_wKm5vpcbiSOoqkLH3PCFRc4N5iIHpu4WEZgxwFxquv2gWAXCA3d_kdo8Bw\"\n}",
+    "overlap_new": "{\n  \"schema_version\": 1,\n  \"envelope\": \"LIC1.issuer-new-vector.eyJzY2hlbWFfdmVyc2lvbiI6MSwibGljZW5jZV9pZCI6ImxpYy1pc3N1ZXItbmV3LXZlY3RvciIsInByb2R1Y3RfaWQiOiJjb20uZXhhbXBsZS5yb3RhdGlvbiIsImxpY2VuY2VfdHlwZSI6InBlcnBldHVhbCIsImlzc3VlZF9hdCI6IjIwMzEtMDEtMDJUMDI6MDA6MDBaIiwibm90X2JlZm9yZSI6IjIwMzEtMDEtMDJUMDI6MDA6MDBaIiwiZXhwaXJlc19hdCI6bnVsbH0.vK9uhBPqgjlGSJpmOHdZcVe1VkAl7ldjl8vy7I6UmyqYpddqr_9bwBlUoHVHtvPN5G7kEYVwe3pq2lM1pkBKCw\",\n  \"issuer_certificate\": \"ISC1.eyJzY2hlbWFfdmVyc2lvbiI6MSwiaXNzdWVyX2tleV9pZCI6Imlzc3Vlci1uZXctdmVjdG9yIiwiYWxnb3JpdGhtIjoiRWQyNTUxOSIsInB1YmxpY19rZXkiOiJGMFZUdEZiZDM4YVFqc3F4d1FILWFySWVLNm9HRjNsYmZVT21OSUtaUDlVIiwiYXV0aG9yaXR5X25vdF9iZWZvcmUiOiIyMDMxLTAxLTAyVDAwOjAwOjAwWiIsImF1dGhvcml0eV9ub3RfYWZ0ZXIiOiIyMDMyLTAyLTAxVDAwOjAwOjAwWiIsInByb2R1Y3RzIjpbImNvbS5leGFtcGxlLnJvdGF0aW9uIl19.E0diWwPCRn2EhZLN_dRW-bQi45tmJKDtzO19Nvpym-_jq1CJhMWo3SwkCURfU-7SAOGNVcMtWKhU3nNT_yRVCQ\"\n}",
+    "overlap_old": "{\n  \"schema_version\": 1,\n  \"envelope\": \"LIC1.issuer-old-vector.eyJzY2hlbWFfdmVyc2lvbiI6MSwibGljZW5jZV9pZCI6ImxpYy1pc3N1ZXItb2xkLXZlY3RvciIsInByb2R1Y3RfaWQiOiJjb20uZXhhbXBsZS5yb3RhdGlvbiIsImxpY2VuY2VfdHlwZSI6InBlcnBldHVhbCIsImlzc3VlZF9hdCI6IjIwMzEtMDEtMDJUMDE6MDA6MDBaIiwibm90X2JlZm9yZSI6IjIwMzEtMDEtMDJUMDE6MDA6MDBaIiwiZXhwaXJlc19hdCI6bnVsbH0.bTLul7rS_ojfJ5xntwZjrwU8SGvsE5Uh0J8X-TxCv4CBhSUNwjm4Pvj-JaYqWL5Kog8PHslLUi1el58-SI38Aw\",\n  \"issuer_certificate\": \"ISC1.eyJzY2hlbWFfdmVyc2lvbiI6MSwiaXNzdWVyX2tleV9pZCI6Imlzc3Vlci1vbGQtdmVjdG9yIiwiYWxnb3JpdGhtIjoiRWQyNTUxOSIsInB1YmxpY19rZXkiOiJKVU81TF9FSlZSRkhhdHlEYWR0dDNKTTJaYUVaZU4yaFFFN2hCbXlwVlowIiwiYXV0aG9yaXR5X25vdF9iZWZvcmUiOiIyMDMwLTEyLTMxVDAwOjAwOjAwWiIsImF1dGhvcml0eV9ub3RfYWZ0ZXIiOiIyMDMyLTAyLTAxVDAwOjAwOjAwWiIsInByb2R1Y3RzIjpbImNvbS5leGFtcGxlLnJvdGF0aW9uIl19.4OgboG9RQNkHlMNtQHn_Vu7uoijHwemxOoGdusQXzcPoVOPST7jGvxk7Atp46cNwmkGJvY7CleRXU8D-ecm9Dw\"\n}"
+  },
+  "new_root_key_id": "sha256:24f6ed6acbfe1009c030d7ca567c33ca4830911498236b5561a6c82abec5de28",
+  "new_root_public_key": "Kay64UG8yvCyLhqU000LxzYeUm0L_hLIl5S8kyKWbdc",
+  "not_before": "2031-01-02T00:00:00Z",
+  "old_root_key_id": "sha256:56475aa75463474c0285df5dbf2bcab73da651358839e9b77481b2eab107708c",
+  "old_root_public_key": "A6EHv_POEL4dcN0Y50vAmWfk1jCbpQ1fHdyGZBJVMbg",
+  "overlap_until": "2031-02-01T00:00:00Z",
+  "schema_version": 1,
+  "transition_artifact": "RKT1.eyJzY2hlbWFfdmVyc2lvbiI6MSwidHJhbnNpdGlvbl9pZCI6InJvb3QtMjAzMS12ZWN0b3IiLCJhbGdvcml0aG0iOiJFZDI1NTE5Iiwib2xkX3Jvb3Rfa2V5X2lkIjoic2hhMjU2OjU2NDc1YWE3NTQ2MzQ3NGMwMjg1ZGY1ZGJmMmJjYWI3M2RhNjUxMzU4ODM5ZTliNzc0ODFiMmVhYjEwNzcwOGMiLCJvbGRfcm9vdF9wdWJsaWNfa2V5IjoiQTZFSHZfUE9FTDRkY04wWTUwdkFtV2ZrMWpDYnBRMWZIZHlHWkJKVk1iZyIsIm5ld19yb290X2tleV9pZCI6InNoYTI1NjoyNGY2ZWQ2YWNiZmUxMDA5YzAzMGQ3Y2E1NjdjMzNjYTQ4MzA5MTE0OTgyMzZiNTU2MWE2YzgyYWJlYzVkZTI4IiwibmV3X3Jvb3RfcHVibGljX2tleSI6IktheTY0VUc4eXZDeUxocVUwMDBMeHpZZVVtMExfaExJbDVTOGt5S1diZGMiLCJjcmVhdGVkX2F0IjoiMjAzMS0wMS0wMVQwMDowMDowMFoiLCJub3RfYmVmb3JlIjoiMjAzMS0wMS0wMlQwMDowMDowMFoiLCJvdmVybGFwX3VudGlsIjoiMjAzMS0wMi0wMVQwMDowMDowMFoiLCJleHBpcmVzX2F0IjoiMjAzMS0wMi0wOFQwMDowMDowMFoiLCJyZWFzb24iOiJjcm9zcy1sYW5ndWFnZSB0ZXN0IHZlY3RvciJ9.7cgmK13l0GUzWhW5XEeBITb1PljXzdc4Y9KDzZH6lu-Q0E3uWuz_AfcopOvUiGg1J9QRijIG471KyqF0oU6vCA.D0BGE-ArN2luRejqgyOVK-cAYcxjfYegsnyNn2mU0hmgxZmPS4ZmdpizAgzyRSOiWpDIsJD8fScRwVLsJU60Dw"
+}

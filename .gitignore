@@ -1,0 +1,9 @@
+/dist/
+/data/
+/secrets/
+*.lic
+*.db
+*.db-shm
+*.db-wal
+coverage.out
+.private/

@@ -1,0 +1,28 @@
+[Unit]
+Description=Desktop Licensing Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=licd
+Group=licd
+ExecStart=/usr/bin/licd serve --config /etc/licd/config.yaml
+EnvironmentFile=-/etc/licd/licd.env
+RuntimeDirectory=licd
+RuntimeDirectoryMode=0750
+StateDirectory=licd
+StateDirectoryMode=0750
+LogsDirectory=licd
+LogsDirectoryMode=0750
+UMask=0027
+Restart=on-failure
+RestartSec=5s
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/licd /var/log/licd
+
+[Install]
+WantedBy=multi-user.target

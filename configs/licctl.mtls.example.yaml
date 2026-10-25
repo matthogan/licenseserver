@@ -1,0 +1,9 @@
+# Client-only configuration for licctl remote administration.
+admin:
+  transport: tcp
+  url: "https://licensing-admin.example.com:9444"
+  tls:
+    certificate_file: "/secure/licctl/operator.crt"
+    private_key_file: "/secure/licctl/operator.key"
+    server_ca_file: "/secure/licctl/admin-server-ca.crt"
+    server_name: "licensing-admin.example.com"

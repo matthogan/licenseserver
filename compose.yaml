@@ -1,0 +1,83 @@
+services:
+  licd:
+    image: ${LICD_IMAGE:-ghcr.io/matthogan/licenceserver:latest}
+    build:
+      context: .
+    restart: unless-stopped
+    read_only: true
+    user: "65532:65532"
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    ports:
+      - "9443:9443"
+    volumes:
+      - licd-data:/var/lib/licd
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=16m,mode=1700,uid=65532,gid=65532
+      - /run/licd:rw,noexec,nosuid,nodev,size=1m,mode=0750,uid=65532,gid=65532
+    environment:
+      LICD_TRIAL_PEPPER_FILE: /run/secrets/trial_pepper
+      LICD_ACTIVATION_PEPPER_FILE: /run/secrets/activation_pepper
+      LICD_RATE_LIMIT_PEPPER_FILE: /run/secrets/rate_limit_pepper
+    secrets:
+      - source: root_public_key
+        target: /etc/licd/secrets/root.pub
+        uid: "65532"
+        gid: "65532"
+        mode: 0400
+      - source: issuer_private_key
+        target: /etc/licd/secrets/issuer.key
+        uid: "65532"
+        gid: "65532"
+        mode: 0400
+      - source: issuer_certificate
+        target: /etc/licd/secrets/issuer.cert
+        uid: "65532"
+        gid: "65532"
+        mode: 0400
+      - source: public_tls_certificate
+        target: /etc/licd/tls/public.crt
+        uid: "65532"
+        gid: "65532"
+        mode: 0400
+      - source: public_tls_private_key
+        target: /etc/licd/tls/public.key
+        uid: "65532"
+        gid: "65532"
+        mode: 0400
+      - source: trial_pepper
+        target: /run/secrets/trial_pepper
+        uid: "65532"
+        gid: "65532"
+        mode: 0400
+      - source: activation_pepper
+        target: /run/secrets/activation_pepper
+        uid: "65532"
+        gid: "65532"
+        mode: 0400
+      - source: rate_limit_pepper
+        target: /run/secrets/rate_limit_pepper
+        uid: "65532"
+        gid: "65532"
+        mode: 0400
+
+volumes:
+  licd-data:
+
+secrets:
+  root_public_key:
+    file: ${LICD_ROOT_PUBLIC_KEY_FILE:?set LICD_ROOT_PUBLIC_KEY_FILE}
+  issuer_private_key:
+    file: ${LICD_ISSUER_PRIVATE_KEY_FILE:?set LICD_ISSUER_PRIVATE_KEY_FILE}
+  issuer_certificate:
+    file: ${LICD_ISSUER_CERTIFICATE_FILE:?set LICD_ISSUER_CERTIFICATE_FILE}
+  public_tls_certificate:
+    file: ${LICD_PUBLIC_TLS_CERTIFICATE_FILE:?set LICD_PUBLIC_TLS_CERTIFICATE_FILE}
+  public_tls_private_key:
+    file: ${LICD_PUBLIC_TLS_PRIVATE_KEY_FILE:?set LICD_PUBLIC_TLS_PRIVATE_KEY_FILE}
+  trial_pepper:
+    file: ${LICD_TRIAL_PEPPER_FILE:?set LICD_TRIAL_PEPPER_FILE}
+  activation_pepper:
+    file: ${LICD_ACTIVATION_PEPPER_FILE:?set LICD_ACTIVATION_PEPPER_FILE}
+  rate_limit_pepper:
+    file: ${LICD_RATE_LIMIT_PEPPER_FILE:?set LICD_RATE_LIMIT_PEPPER_FILE}

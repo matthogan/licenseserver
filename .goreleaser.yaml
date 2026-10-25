@@ -1,0 +1,135 @@
+version: 2
+
+project_name: licenceserver
+
+before:
+  hooks:
+    - go mod tidy
+    - go test ./...
+
+builds:
+  - id: licd
+    main: ./cmd/licd
+    binary: licd
+    env: [CGO_ENABLED=0]
+    goos: [linux, windows]
+    goarch: [amd64, arm64, arm]
+    goarm: ['7']
+    ignore:
+      - goos: windows
+        goarch: arm
+    ldflags:
+      - -s -w
+      - -X github.com/matthogan/licenceserver/internal/buildinfo.Version={{.Version}}
+      - -X github.com/matthogan/licenceserver/internal/buildinfo.Commit={{.Commit}}
+      - -X github.com/matthogan/licenceserver/internal/buildinfo.Date={{.Date}}
+  - id: licctl
+    main: ./cmd/licctl
+    binary: licctl
+    env: [CGO_ENABLED=0]
+    goos: [linux, windows]
+    goarch: [amd64, arm64, arm]
+    goarm: ['7']
+    ignore:
+      - goos: windows
+        goarch: arm
+    ldflags:
+      - -s -w
+      - -X github.com/matthogan/licenceserver/internal/buildinfo.Version={{.Version}}
+      - -X github.com/matthogan/licenceserver/internal/buildinfo.Commit={{.Commit}}
+      - -X github.com/matthogan/licenceserver/internal/buildinfo.Date={{.Date}}
+
+archives:
+  - id: bundles
+    ids: [licd, licctl]
+    formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_
+      {{- if eq .Arch "arm" }}raspberry-pi-armv{{ .Arm }}
+      {{- else if and (eq .Os "linux") (eq .Arch "arm64") }}raspberry-pi-arm64
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - README.md
+      - configs/*.yaml
+      - docs/transport-security.md
+      - docs/backup-and-restore.md
+      - docs/api-error-catalogue.md
+      - docs/container-deployment.md
+      - docs/supply-chain-security.md
+      - docs/production-data-export.md
+      - docs/production-retention-and-deletion.md
+      - docs/recovery-drills.md
+      - docs/production-acceptance-checklist.md
+      - packaging/systemd/licd.service
+
+nfpms:
+  - id: linux-packages
+    package_name: licd
+    ids: [licd, licctl]
+    vendor: licenceserver
+    homepage: https://github.com/matthogan/licenceserver
+    maintainer: licenceserver maintainers
+    description: Offline-first desktop licensing server and administration CLI
+    formats: [deb, rpm, apk]
+    bindir: /usr/bin
+    contents:
+      - src: configs/config.linux.yaml
+        dst: /etc/licd/config.yaml
+        type: config
+      - src: packaging/systemd/licd.service
+        dst: /usr/lib/systemd/system/licd.service
+      - src: docs/backup-and-restore.md
+        dst: /usr/share/doc/licd/backup-and-restore.md
+      - src: docs/transport-security.md
+        dst: /usr/share/doc/licd/transport-security.md
+      - src: docs/api-error-catalogue.md
+        dst: /usr/share/doc/licd/api-error-catalogue.md
+      - src: docs/container-deployment.md
+        dst: /usr/share/doc/licd/container-deployment.md
+      - src: docs/supply-chain-security.md
+        dst: /usr/share/doc/licd/supply-chain-security.md
+      - src: docs/production-data-export.md
+        dst: /usr/share/doc/licd/production-data-export.md
+      - src: docs/production-retention-and-deletion.md
+        dst: /usr/share/doc/licd/production-retention-and-deletion.md
+      - src: docs/recovery-drills.md
+        dst: /usr/share/doc/licd/recovery-drills.md
+      - src: docs/production-acceptance-checklist.md
+        dst: /usr/share/doc/licd/production-acceptance-checklist.md
+      - src: configs/config.backup-sse-c.example.yaml
+        dst: /usr/share/doc/licd/config.backup-sse-c.example.yaml
+    scripts:
+      postinstall: packaging/scripts/postinstall.sh
+      preremove: packaging/scripts/preremove.sh
+
+checksum:
+  name_template: checksums.txt
+sboms:
+  - id: archive-sboms
+    artifacts: archive
+    disable: false
+  - id: package-sboms
+    artifacts: package
+    disable: false
+signs:
+  - id: keyless-checksum
+    cmd: cosign
+    artifacts: checksum
+    signature: "${artifact}.sig"
+    certificate: "${artifact}.pem"
+    output: true
+    args:
+      - sign-blob
+      - "--output-certificate=${certificate}"
+      - "--output-signature=${signature}"
+      - "${artifact}"
+      - --yes
+changelog:
+  sort: asc
+  filters:
+    exclude: ['^docs:', '^test:']
+release:
+  draft: true

@@ -1,0 +1,12 @@
+.git
+.github
+.private
+dist
+tmp
+*.db
+*.db-wal
+*.db-shm
+*.key
+*.pem
+*.crt
+*.env

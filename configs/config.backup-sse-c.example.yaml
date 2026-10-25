@@ -1,0 +1,26 @@
+# Merge this block into the platform configuration when AWS KMS is unavailable.
+# LICD_BACKUP_SSE_C_KEY must contain a base64-encoded 256-bit key stored in the
+# service secret environment, never in this file.
+backup:
+  continuous:
+    enabled: true
+    required: true
+    binary: litestream
+    config_file: "/var/lib/licd/litestream.generated.yml"
+    replica_url: "s3://company-licensing-dr/sqlite/licensing.db"
+    sync_interval: 1s
+    snapshot_interval: 24h
+    retention: 720h
+    validation_interval: 5m
+    health_check_interval: 1m
+    max_backup_age: 5m
+    shutdown_timeout: 30s
+    s3:
+      region: eu-west-1
+      endpoint: ""
+      force_path_style: false
+      encryption:
+        mode: sse-c
+        kms_key_id: ""
+        kms_key_id_env: ""
+        customer_key_env: LICD_BACKUP_SSE_C_KEY
