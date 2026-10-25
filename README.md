@@ -177,6 +177,10 @@ Run `licctl <command> --help` for flags. Information-returning commands accept t
 
 ## Development
 
+For a ready-made Docker test environment with real PostgreSQL, pinned Litestream,
+and race detection, run `./scripts/test-local.ps1` from PowerShell. See
+[local testing and Woodpecker](docs/local-ci.md) for setup and pipeline instructions.
+
 ```sh
 go test -race ./...
 go vet ./...

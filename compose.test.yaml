@@ -1,0 +1,35 @@
+name: licd-tests
+
+services:
+  postgres:
+    image: postgres:17.6-bookworm
+    environment:
+      POSTGRES_DB: licenceserver_test
+      POSTGRES_USER: licd_test
+      POSTGRES_PASSWORD: disposable-test-password
+    # No host port and no durable database: every run starts from scratch.
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U licd_test -d licenceserver_test"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  test:
+    image: local/licd-test:go1.26.6-litestream0.5.12-v1
+    build:
+      context: .
+      dockerfile: ci/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: [bash, scripts/ci/run-tests.sh]
+    volumes:
+      - .:/workspace
+      - go-modules:/go/pkg/mod
+      - go-build:/root/.cache/go-build
+
+volumes:
+  go-modules:
+  go-build:

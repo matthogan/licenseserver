@@ -7,3 +7,4 @@
 *.db-wal
 coverage.out
 .private/
+.ci-results/

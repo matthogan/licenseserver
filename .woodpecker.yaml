@@ -1,0 +1,19 @@
+when:
+  - event: [push, pull_request, manual]
+
+services:
+  - name: postgres
+    image: postgres:17.6-bookworm
+    environment:
+      POSTGRES_DB: licenceserver_test
+      POSTGRES_USER: licd_test
+      POSTGRES_PASSWORD: disposable-test-password
+
+steps:
+  - name: test
+    # Build once on the Docker daemon used by the local Woodpecker agent:
+    # docker compose -f compose.test.yaml build
+    image: local/licd-test:go1.26.6-litestream0.5.12-v1
+    pull: false
+    commands:
+      - bash scripts/ci/run-tests.sh
