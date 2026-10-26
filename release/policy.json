@@ -1,0 +1,5 @@
+{
+  "repository": "https://github.com/matthogan/licenseserver",
+  "builder": "https://github.com/matthogan/licenseserver/builders/woodpecker-local/v1",
+  "platforms": ["linux/amd64", "linux/arm64"]
+}

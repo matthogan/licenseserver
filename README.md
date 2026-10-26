@@ -172,6 +172,9 @@ Run `licctl <command> --help` for flags. Information-returning commands accept t
 - Continuous backup requires Litestream v0.5.12+ on the host and a separately provisioned S3 bucket/KMS policy. See [docs/backup-and-restore.md](docs/backup-and-restore.md) before enabling it.
 - For containers, use the persistent-volume and mounted-secret procedure in [docs/container-deployment.md](docs/container-deployment.md).
 - Verify release checksums, Cosign signatures, SBOMs and provenance using [docs/supply-chain-security.md](docs/supply-chain-security.md).
+- Local Woodpecker release candidates are built on signed tags and exported for
+  interactive Cosign signing; see the same guide for release-image setup and
+  trusted volumes. Registry publication remains a separate step.
 - PostgreSQL, AWS KMS signing and immutable S3 archive configuration is shown in `configs/config.postgres-kms-s3.example.yaml`; PostgreSQL credentials use `LICD_DATABASE_URL` and AWS credentials use the default credential chain rather than configuration files.
 - A perpetual `.lic` file remains independently verifiable; loss of this server does not invalidate it.
 

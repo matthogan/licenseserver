@@ -74,3 +74,7 @@ outside the repository. This workflow tests and builds; it does not deploy or pu
 
 Disable existing GitHub Actions workflows separately if all builds should be
 local. Woodpecker does not disable them automatically.
+
+Signed `v*` tags additionally run the local release-candidate step described in
+`docs/supply-chain-security.md`. It requires the release image and trusted volumes.
+It does not run for ordinary pushes or pull requests.

@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7
-FROM golang:1.26.6-alpine3.22 AS build
+FROM --platform=$BUILDPLATFORM golang:1.26.6-bookworm AS build
 WORKDIR /src
 COPY go.mod go.sum ./
 RUN --mount=type=cache,target=/go/pkg/mod go mod download
@@ -7,11 +7,14 @@ COPY . .
 ARG TARGETOS=linux
 ARG TARGETARCH
 ARG TARGETVARIANT
+ARG VERSION=dev
+ARG COMMIT=none
+ARG BUILD_DATE=unknown
 RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build \
     CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} GOARM=${TARGETVARIANT#v} \
-    go build -trimpath -ldflags="-s -w" -o /out/licd ./cmd/licd && \
+    go build -trimpath -ldflags="-s -w -X github.com/matthogan/licenceserver/internal/buildinfo.Version=${VERSION} -X github.com/matthogan/licenceserver/internal/buildinfo.Commit=${COMMIT} -X github.com/matthogan/licenceserver/internal/buildinfo.Date=${BUILD_DATE}" -o /out/licd ./cmd/licd && \
     CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} GOARM=${TARGETVARIANT#v} \
-    go build -trimpath -ldflags="-s -w" -o /out/licctl ./cmd/licctl
+    go build -trimpath -ldflags="-s -w -X github.com/matthogan/licenceserver/internal/buildinfo.Version=${VERSION} -X github.com/matthogan/licenceserver/internal/buildinfo.Commit=${COMMIT} -X github.com/matthogan/licenceserver/internal/buildinfo.Date=${BUILD_DATE}" -o /out/licctl ./cmd/licctl
 
 FROM alpine:3.22
 RUN apk add --no-cache ca-certificates tzdata && \

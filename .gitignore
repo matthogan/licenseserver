@@ -8,3 +8,5 @@
 coverage.out
 .private/
 .ci-results/
+.release-output/
+__pycache__/

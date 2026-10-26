@@ -4,7 +4,7 @@ project_name: licenceserver
 
 before:
   hooks:
-    - go mod tidy
+    - go mod verify
     - go test ./...
 
 builds:
@@ -114,19 +114,8 @@ sboms:
   - id: package-sboms
     artifacts: package
     disable: false
-signs:
-  - id: keyless-checksum
-    cmd: cosign
-    artifacts: checksum
-    signature: "${artifact}.sig"
-    certificate: "${artifact}.pem"
-    output: true
-    args:
-      - sign-blob
-      - "--output-certificate=${certificate}"
-      - "--output-signature=${signature}"
-      - "${artifact}"
-      - --yes
+# The final manifest also covers the OCI container, provenance, and test evidence.
+# It is signed interactively on the release owner's PC by scripts/release/release.ps1.
 changelog:
   sort: asc
   filters:

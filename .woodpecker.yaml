@@ -1,5 +1,11 @@
 when:
-  - event: [push, pull_request, manual]
+  - event: [push, pull_request, manual, tag]
+
+clone:
+  - name: clone
+    image: woodpeckerci/plugin-git:2.10.1
+    settings:
+      depth: 0
 
 services:
   - name: postgres
@@ -17,3 +23,15 @@ steps:
     pull: false
     commands:
       - bash scripts/ci/run-tests.sh
+
+  - name: release-candidate
+    image: local/licd-release:tools-v1
+    pull: false
+    when:
+      - event: tag
+        ref: refs/tags/v*
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - licd-release-candidates:/releases
+    commands:
+      - bash scripts/release/build.sh

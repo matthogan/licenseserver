@@ -11,3 +11,4 @@ tmp
 *.crt
 *.env
 .ci-results
+.release-output
